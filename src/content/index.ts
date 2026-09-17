@@ -43,6 +43,7 @@ export const paths = [
 ]
 
 export const resources = [
+  ['Solicitud de monitor extra', 'Documentación referente a la solicitud de un monitor extra para el espacio de trabajo', `${import.meta.env.BASE_URL}Manual%20Tickets%20de%20Solicitud%20de%20equipamiento.pdf`],
   ['Azure Architecture Center', 'Arquitecturas de referencia y guía para diseñar soluciones cloud.', 'https://learn.microsoft.com/azure/architecture/'],
   ['Documentación de Azure Landing Zones', 'Guía de Microsoft para diseñar una base cloud escalable.', 'https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/'],
   ['Azure Well-Architected Framework', 'Marco para evaluar la calidad de un workload en cinco pilares.', 'https://learn.microsoft.com/azure/well-architected/'],

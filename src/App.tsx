@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, BookOpen, Boxes, Check, ChevronRight, CircleAlert, Cloud, ExternalLink, FileText, GitBranch, Layers3, Menu, Search, ShieldCheck, Sparkles, X } from 'lucide-react'
 import { glossary, learningCards, paths, resources, type ContentType, type Level } from './content'
+import { Glossary as GlossaryPage } from './pages/Glossary'
+import { Resources as ResourcesPage } from './pages/Resources'
 
 type View = 'home' | 'enterprise-architecture' | 'azure-fundamentals' | 'landing-zones' | 'architecture-practice' | 'profuturo' | 'glossary' | 'resources'
 
@@ -33,7 +35,7 @@ export function App() {
 
   return <div className="app-shell">
     <header className="site-header">
-      <a className="brand" href="#home" onClick={() => setMenuOpen(false)}><span className="brand-mark"><Sparkles size={15} /></span><span>First <em>Steps</em></span></a>
+      <a className="brand" href="#home" onClick={() => setMenuOpen(false)}><img className="brand-logo" src="/logo-profuturo.png" alt="Profuturo" style={{ width: 32, height: 32, borderRadius: 8, objectFit: 'cover' }} /><span>Profuturo | <em>First Steps</em></span></a>
       <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
       <nav className={menuOpen ? 'main-nav open' : 'main-nav'} aria-label="Navegación principal">{navItems.map((item) => <a key={item.id} className={view === item.id ? 'active' : ''} href={`#${item.id}`} onClick={() => setMenuOpen(false)}>{item.label}</a>)}<a href="#resources" onClick={() => setMenuOpen(false)}>Recursos <ExternalLink size={13} /></a></nav>
       <a className="header-action" href="#glossary">Abrir glosario <ArrowRight size={15} /></a>
@@ -45,8 +47,8 @@ export function App() {
       {view === 'landing-zones' && <Article view="landing" navigate={navigate} />}
       {view === 'architecture-practice' && <Article view="practice" navigate={navigate} />}
       {view === 'profuturo' && <Profuturo navigate={navigate} />}
-      {view === 'glossary' && <Glossary />}
-      {view === 'resources' && <Resources />}
+      {view === 'glossary' && <GlossaryPage />}
+      {view === 'resources' && <ResourcesPage />}
     </main>
     <footer><div className="footer-brand"><span className="brand-mark"><Sparkles size={15} /></span><strong>First Steps</strong><p>Una guía viva para comenzar el camino de arquitectura.</p></div><div><span className="footer-label">Referencias oficiales</span><a href="https://learn.microsoft.com/azure/architecture/" target="_blank" rel="noreferrer">Azure Architecture Center <ExternalLink size={12} /></a><a href="https://docs.github.com/pages" target="_blank" rel="noreferrer">GitHub Pages <ExternalLink size={12} /></a></div><div className="footer-note"><CircleAlert size={16} /><span>La información interna de Profuturo está marcada y debe validarse antes de utilizarse.</span></div></footer>
   </div>
@@ -74,6 +76,3 @@ function FoundationDiagram() { return <div className="foundation-diagram" aria-l
 
 function Profuturo({ navigate }: { navigate: (view: View) => void }) { const modules = ['Visión general', 'Arquitectura de alto nivel', 'Networking y conectividad', 'Identidad y accesos', 'Seguridad y cumplimiento', 'Gobierno y políticas', 'Servicios compartidos', 'Observabilidad', 'Automatización']; return <article className="article profuturo"><div className="article-header"><div className="article-icon orange"><ShieldCheck /></div><span className="section-eyebrow">ESPACIO DE REFERENCIA INTERNO</span><h1>Landing Zone de Profuturo</h1><p>Un índice preparado para documentar la implementación interna. Hoy contiene contexto general y espacios explícitos para validación.</p><div className="validation-banner"><CircleAlert size={18} /><span><strong>Pendiente de validación:</strong> no se documentan topología, nombres de recursos, subscriptions, políticas ni procesos internos sin confirmación.</span></div></div><div className="module-grid">{modules.map((module, index) => <div className="module-card" key={module}><span className="module-number">{String(index + 1).padStart(2, '0')}</span><h3>{module}</h3><p>Objetivo, conceptos, referencias y diagrama por documentar.</p><span className="pending"><CircleAlert size={13} /> Pendiente de validación</span></div>)}</div><div className="reference-panel"><h2>Límite conocido</h2><p>La arquitectura conceptual de Azure Landing Zones de Microsoft sirve como referencia. La correspondencia con el entorno de Profuturo debe ser revisada y aprobada internamente.</p><button className="button dark" onClick={() => navigate('resources')}>Abrir referencias oficiales <ExternalLink size={15} /></button></div></article> }
 
-function Glossary() { const [term, setTerm] = useState(''); const [category, setCategory] = useState('Todas'); const categories = ['Todas', ...Array.from(new Set(glossary.map((entry) => entry[2])))]; const entries = glossary.filter(([name, definition, group]) => (category === 'Todas' || group === category) && `${name} ${definition}`.toLowerCase().includes(term.toLowerCase())); return <article className="article glossary"><div className="article-header compact"><span className="section-eyebrow">REFERENCIA / GLOSARIO</span><h1>Palabras que conviene conocer.</h1><p>Primero una definición sencilla, después una explicación técnica. El contexto se construye término por término.</p></div><div className="filter-row"><div className="search-wrap inline"><Search size={17} /><input value={term} onChange={(event) => setTerm(event.target.value)} placeholder="Buscar términos" aria-label="Buscar en el glosario" /></div><div className="filters">{categories.map((item) => <button className={category === item ? 'selected' : ''} key={item} onClick={() => setCategory(item)}>{item}</button>)}</div></div><div className="glossary-grid">{entries.map(([name, definition, group]) => <div className="term-card" key={name}><span className="tag">{group.toUpperCase()}</span><h3>{name}</h3><p>{definition}</p><a href="https://learn.microsoft.com/azure/" target="_blank" rel="noreferrer">Referencia relacionada <ExternalLink size={13} /></a></div>)}</div></article> }
-
-function Resources() { return <article className="article resources"><div className="article-header compact"><span className="section-eyebrow">REFERENCIA / FUENTES OFICIALES</span><h1>Sigue aprendiendo desde la fuente.</h1><p>Enlaces verificables para profundizar en Azure, arquitectura cloud y publicación estática.</p></div><div className="resource-list">{resources.map(([title, description, url]) => <a className="resource-row" href={url} target="_blank" rel="noreferrer" key={title}><div className="resource-icon"><ExternalLink size={18} /></div><div><h3>{title}</h3><p>{description}</p></div><ArrowRight size={18} /></a>)}</div><div className="github-note"><GitBranch size={21} /><div><strong>Construido para vivir en GitHub.</strong><p>El contenido es versionable, revisable y publicable desde GitHub Pages sin backend.</p></div></div></article> }
