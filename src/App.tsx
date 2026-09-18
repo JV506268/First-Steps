@@ -35,7 +35,7 @@ export function App() {
 
   return <div className="app-shell">
     <header className="site-header">
-      <a className="brand" href="#home" onClick={() => setMenuOpen(false)}><img className="brand-logo" src="/logo-profuturo.png" alt="Profuturo" style={{ width: 32, height: 32, borderRadius: 8, objectFit: 'cover' }} /><span>Profuturo | <em>First Steps</em></span></a>
+      <a className="brand" href="#home" onClick={() => setMenuOpen(false)}><img className="brand-logo" src={`${import.meta.env.BASE_URL}logo-profuturo.png`} alt="Profuturo" style={{ width: 32, height: 32, borderRadius: 8, objectFit: 'cover' }} /><span>Profuturo | <em>First Steps</em></span></a>
       <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
       <nav className={menuOpen ? 'main-nav open' : 'main-nav'} aria-label="Navegación principal">{navItems.map((item) => <a key={item.id} className={view === item.id ? 'active' : ''} href={`#${item.id}`} onClick={() => setMenuOpen(false)}>{item.label}</a>)}<a href="#resources" onClick={() => setMenuOpen(false)}>Recursos <ExternalLink size={13} /></a></nav>
       <a className="header-action" href="#glossary">Abrir glosario <ArrowRight size={15} /></a>
