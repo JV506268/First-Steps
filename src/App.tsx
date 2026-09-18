@@ -10,7 +10,6 @@ const navItems: { id: View; label: string }[] = [
   { id: 'home', label: 'Inicio' },
   { id: 'enterprise-architecture', label: 'Fundamentos de EA' },
   { id: 'azure-fundamentals', label: 'Fundamentos de Azure' },
-  { id: 'landing-zones', label: 'Landing Zones' },
   { id: 'profuturo', label: 'Landing Zone Profuturo' },
 ]
 
