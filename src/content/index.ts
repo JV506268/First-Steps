@@ -43,6 +43,6 @@ export const paths = [
 ]
 
 export const resources = [
-  ['Solicitud de monitor extra', 'Documentación referente a la solicitud de un monitor extra para el espacio de trabajo', `${import.meta.env.BASE_URL}Manual%20Tickets%20de%20Solicitud%20de%20equipamiento.pdf`],
+  ['Solicitud de monitor extra', 'Documentación PDF referente a la solicitud de un monitor extra para el espacio de trabajo', `${import.meta.env.BASE_URL}Manual%20Tickets%20de%20Solicitud%20de%20equipamiento.pdf`],
   ['Sharepoint', 'Espacio en Sharepoint del portafolio de arquitectura. Nota: Se deben solicitar permisos previamente', 'https://profuturocloud.sharepoint.com/sites/ArquitecturaEmpresarialProfuturo/Portafolio%20de%20Proyectos/Forms/AllItems.aspx']
 ]
